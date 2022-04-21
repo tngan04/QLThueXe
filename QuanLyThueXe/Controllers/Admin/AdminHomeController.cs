@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuanLyThueXe.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,15 @@ namespace QuanLyThueXe.Controllers.Admin
         // GET: AdminHome
         public ActionResult Index()
         {
-            return View();
+            var users = (user)Session["Admin"];
+            if(users != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "AdminLogin");
+            }
         }
     }
 }

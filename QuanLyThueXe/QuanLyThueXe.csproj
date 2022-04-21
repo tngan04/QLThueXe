@@ -129,7 +129,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
+    <Compile Include="Controllers\Admin\AdminLoginController.cs" />
     <Compile Include="Controllers\Admin\AdminModulesController.cs" />
+    <Compile Include="Controllers\Admin\AdminRentalController.cs" />
+    <Compile Include="Controllers\Admin\AdminUserController.cs" />
+    <Compile Include="Controllers\Admin\AdminVehicleController.cs" />
+    <Compile Include="Controllers\Admin\AdminVoucherController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Daos\RentalDao.cs" />
     <Compile Include="Daos\RoleDao.cs" />
@@ -203,6 +208,11 @@
     <Content Include="Views\AdminModules\Menu.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
     <Content Include="Views\AdminHome\Index.cshtml" />
+    <Content Include="Views\AdminLogin\Index.cshtml" />
+    <Content Include="Views\AdminVoucher\Index.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminRental\Index.cshtml" />
+    <Content Include="Views\AdminVehicle\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

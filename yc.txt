@@ -1,0 +1,13 @@
+web quản lý thuê xe gồm các chức năng như này:
+Người dùng :
+- Đăng ký
+- Đăng nhập
+- Xem trang chủ hiển thị ra các xe 
+- Xem chi tiết về xe
+- Thuê xe (nhập mã voucher để giảm giá)
+Admin
+- Đăng nhập
+- Quản lý người dùng
+- Quản lý xe
+- Quản lý đơn thuê xe
+- Quản lý voucher

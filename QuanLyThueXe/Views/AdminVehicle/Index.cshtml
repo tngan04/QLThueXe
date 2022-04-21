@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h4 class="mt-1">Danh sách Xe</h4>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                @if (ViewBag.Msg != null)
+                {
+                    if (ViewBag.Msg == "1")
+                    {
+                        <div class="alert alert-success">
+                            <strong>Thành công</strong>
+                        </div>
+                    }
+                }
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalAdd">
+                    Thêm mới
+                </button>
+            </div>
+
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead style="color:#0d6efd ">
+                        <tr style="background-color: darkgrey">
+                            <th>STT</th>
+                            <th>Tên xe</th>
+                            <th>Ảnh</th>
+                            <th>Loại xe</th>
+                            <th>Giá thuê</th>
+                            <th>Mô tả</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên xe</th>
+                            <th>Ảnh</th>
+                            <th>Loại xe</th>
+                            <th>Giá thuê</th>
+                            <th>Mô tả</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{ var stt = 1;}
+                        @foreach (var item in ViewBag.List)
+                        {
+                            <tr>
+                                <td style="width:10px">@stt</td>
+                                <td>
+                                    @item.name
+                                </td>
+                                <td>
+                                    <img style="width: 200px !important;height: 150px !important;" src="~/Content/Admin/assets/img/@item.image"
+                                         class="img-fluid">
+                                </td>
+                                <td>
+                                    @item.type_vehicle
+                                </td>
+                                <td>
+                                    @item.price <span>VND / 1 giờ</span>
+                                </td>
+                                <td>
+                                    @item.description
+                                </td>
+                                <td>
+                                    @{
+                                        var idEx1 = "exampleModalLabel" + item.vehicle_id;
+                                        var idModelDel = "exampleModalDel" + item.vehicle_id;
+                                    }
+                                    <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#@idEx1">
+                                        Sửa
+                                    </button>
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#@idModelDel" style="width:100px" class="btn btn-danger"> Xóa</button>
+                                </td>
+                            </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
