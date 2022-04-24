@@ -2,13 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace QuanLyThueXe.Daos
 {
     public class UserDao
     {
-        QuanLyXeContext myDb = new QuanLyXeContext();
+        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
 
         public List<user> getAll()
         {
@@ -31,22 +33,20 @@ namespace QuanLyThueXe.Daos
             return myDb.users.FirstOrDefault(x => x.user_id == id);
         }
 
-        /*public List<User> getListEmployee() { return myDb.users.Where(x => x.idRole == 1).ToList(); }
-
-        public void add(User user)
+        public void add(user user)
         {
             myDb.users.Add(user);
             myDb.SaveChanges();
         }
 
-        public bool checkExistUsername(string userName)
+        public bool checkExistEmail(string email)
         {
-            var obj = myDb.users.FirstOrDefault(x => x.userName == userName);
+            var obj = myDb.users.FirstOrDefault(x => x.email == email);
             if (obj != null) { return true; }
             return false;
         }
 
-        public void delete(int id)
+      /*  public void delete(int id)
         {
             var obj = myDb.users.FirstOrDefault(x => x.idUser == id);
             myDb.users.Remove(obj);
@@ -65,5 +65,18 @@ namespace QuanLyThueXe.Daos
             obj.idGroup = user.idGroup;
             myDb.SaveChanges();
         }*/
+
+        public string md5(string password)
+        {
+            MD5 md = MD5.Create();
+            byte[] inputString = System.Text.Encoding.ASCII.GetBytes(password);
+            byte[] hash = md.ComputeHash(inputString);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+            {
+                sb.Append(hash[i].ToString("x"));
+            }
+            return sb.ToString();
+        }
     }
 }

@@ -1,0 +1,29 @@
+﻿<div class="container">
+    <a class="navbar-brand" href="/">Rental Car</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+    </button>
+    @{ var userInfomatiom = (QuanLyThueXe.Models.user)Session["USER"]; }
+    <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item "><a href="/" class="nav-link">Trang chủ</a></li>
+
+            <li class="nav-item "><a href="/PublicCar/ListXeMay/0" class="nav-link">Xe máy</a></li>
+            <li class="nav-item "><a href="/PublicCar/ListOto/0" class="nav-link">Xe ô tô</a></li>
+
+
+            @if (userInfomatiom != null)
+            {
+                <li class="nav-item"><a href="/PublicRental/GetRentals/@userInfomatiom.user_id" class="nav-link">Lịch sử thuê xe</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">@userInfomatiom.fullname</a></li>
+                <li class="nav-item cta"><a href="/PublicAuthentication/Logout" class="nav-link"><span>Đăng xuất</span></a></li>
+            }
+            else
+            {
+                <li class="nav-item cta"><a href="/PublicAuthentication/Login" class="nav-link"><span>Đăng nhập</span></a></li>
+            }
+        </ul>
+    </div>
+</div>
+

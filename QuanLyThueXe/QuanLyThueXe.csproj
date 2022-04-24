@@ -135,7 +135,11 @@
     <Compile Include="Controllers\Admin\AdminUserController.cs" />
     <Compile Include="Controllers\Admin\AdminVehicleController.cs" />
     <Compile Include="Controllers\Admin\AdminVoucherController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Public\PublicAuthenticationController.cs" />
+    <Compile Include="Controllers\Public\PublicRentalController.cs" />
+    <Compile Include="Controllers\Public\PublicCarController.cs" />
+    <Compile Include="Controllers\Public\PublicHomeController.cs" />
+    <Compile Include="Controllers\Public\PublicModulesController.cs" />
     <Compile Include="Daos\RentalDao.cs" />
     <Compile Include="Daos\RoleDao.cs" />
     <Compile Include="Daos\UserDao.cs" />
@@ -144,7 +148,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\QuanLyXeContext.cs" />
+    <Compile Include="Models\QuanLyXeDbContext.cs" />
     <Compile Include="Models\rental.cs" />
     <Compile Include="Models\role.cs" />
     <Compile Include="Models\user.cs" />
@@ -199,10 +203,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\AdminModules\Header.cshtml" />
     <Content Include="Views\AdminModules\Footer.cshtml" />
     <Content Include="Views\AdminModules\Menu.cshtml" />
@@ -213,6 +213,16 @@
     <Content Include="Views\AdminUser\Index.cshtml" />
     <Content Include="Views\AdminRental\Index.cshtml" />
     <Content Include="Views\AdminVehicle\Index.cshtml" />
+    <Content Include="Views\PublicModules\Header.cshtml" />
+    <Content Include="Views\PublicModules\Footer.cshtml" />
+    <Content Include="Views\Shared\_LayoutPublic.cshtml" />
+    <Content Include="Views\PublicHome\Index.cshtml" />
+    <Content Include="Views\PublicAuthentication\Login.cshtml" />
+    <Content Include="Views\PublicCar\DetailCar.cshtml" />
+    <Content Include="Views\PublicCar\ListOto.cshtml" />
+    <Content Include="Views\PublicCar\ListXeMay.cshtml" />
+    <Content Include="Views\PublicCar\Search.cshtml" />
+    <Content Include="Views\PublicRental\GetRentals.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

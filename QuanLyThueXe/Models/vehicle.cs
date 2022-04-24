@@ -31,6 +31,8 @@ namespace QuanLyThueXe.Models
 
         public string description { get; set; }
 
+        public int? quantity { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<rental> rentals { get; set; }
     }

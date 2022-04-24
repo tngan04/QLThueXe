@@ -12,11 +12,20 @@ namespace QuanLyThueXe
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapRoute(
+                name: "list ô tô",
+                url: "PublicCar/ListOto/{page}",
+                defaults: new { controller = "PublicCar", action = "ListOto", id = UrlParameter.Optional }
+           );
+            routes.MapRoute(
+              name: "list xe máy",
+              url: "PublicCar/ListXeMay/{page}",
+              defaults: new { controller = "PublicCar", action = "ListXeMay", id = UrlParameter.Optional }
+            );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PublicHome", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

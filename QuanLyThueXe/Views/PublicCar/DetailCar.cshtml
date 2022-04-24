@@ -1,0 +1,225 @@
+﻿
+@{
+    ViewBag.Title = "DetailRoom";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+
+<div class="hero-wrap js-fullheight" style="background-image: url('https://allimages.sgp1.digitaloceanspaces.com/didaudalatcom/2019/08/Hinh-anh-Khach-san-LaDaLat-Tp-da-lat-di-dau-da-Lat.jpg'); height: 400px ">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
+            <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Xe</a></span> <span>Chi tiết</span></p>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">@ViewBag.Vehicle.name</h1>
+            </div>
+        </div>
+    </div>
+</div>
+@if (ViewBag.mess == "ErrorLogin")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Bạn cần phải đăng nhập',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+@if (ViewBag.mess == "ErrorVoucherNumber")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Voucher này đã hết số lượt sử dụng',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+
+@if (ViewBag.mess == "ErrorQuantity")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Số lượng xe trong kho không đủ',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+
+
+@if (ViewBag.mess == "ErrorVoucherExpire")
+{
+
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
+        <script>
+            swal({
+                title: 'Voucher này đã quá hạn sử dụng',
+                /* text: 'Redirecting...', */
+                icon: 'error',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+
+@if (ViewBag.mess == "Success")
+{
+    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+
+        <script>
+            swal({
+                title: 'Thuê xe thành công!',
+                /* text: 'Redirecting...', */
+                icon: 'success',
+                timer: 3000,
+                buttons: true,
+                type: 'success'
+            })
+        </script>
+    </div>
+}
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <div class="s">
+                            <div class="item">
+                                <img src="/Content/images/@ViewBag.Vehicle.image" class="hotel-img" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 hotel-single mt-4 mb-5 ">
+
+                        <h2>@ViewBag.Vehicle.name</h2>
+                        <h5>@ViewBag.Vehicle.price VNĐ </h5>
+                        <p class="rate mb-5">
+                            <span class="loc"><a href="#"><i class="icon-map"></i><span>@ViewBag.Vehicle.type_vehicle</span></a></span>
+                            <span class="star">
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star"></i>
+                                <i class="icon-star-o"></i>
+                                @*  <span>@ViewBag.Room.view lượt xem</span>*@
+                        </p>
+                        <p>@ViewBag.Vehicle.description</p>
+                    </div>
+
+
+                    <div class="col-md-12 hotel-single  mb-5 mt-4">
+                        <h4 class="mb-5">Booking</h4>
+                        <form action="/PublicCar/Booking" method="post">
+                            <div class="fields">
+                                <div class="row">
+                                    <input type="hidden" name="vehicle_id" value="@ViewBag.Vehicle.vehicle_id" />
+                                    <div class="col-md-6">
+                                        <label>Ngày thuê:</label>
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" name="date_rental" required placeholder="Email">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Sô ngày thuê:</label>
+                                        <div class="form-group">
+                                            <input type="number" name="number_day" class="form-control" required placeholder="Sô ngày thuê">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <label>Mã voucher:</label>
+                                        <div class="form-group">
+                                            <input type="text" name="voucher_code" class="form-control" placeholder="Mã khuyến mãi">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Số lượng xe muốn thuê:</label>
+                                        <div class="form-group">
+                                            <input type="number" name="quantity" class="form-control" min="1" required placeholder="Số lượng xe muốn thuê">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="submit" value="Thuê xe" class="btn btn-primary py-3">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+
+                    <div class="col-md-12 hotel-single  mb-5 mt-5">
+                        <h4 class="mb-4">Related Tours</h4>
+                        <div class="row">
+                            @foreach (var item in ViewBag.ListVehicleRelated)
+                            {
+                                <div class="col-sm col-md-6 col-lg ftco-animate">
+                                    <div class="destination">
+                                        <a href="" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/Content/images/@item.image);">
+                                            <div class="icon d-flex justify-content-center align-items-center">
+                                                <span class="icon-search2"></span>
+                                            </div>
+                                        </a>
+                                        <div class="text p-3">
+                                            <div class="d-flex">
+                                                <div class="one">
+                                                    <h3><a href="/PublicCar/DetailCar/@item.vehicle_id">@item.name</a></h3>
+                                                    <p class="rate">
+                                                        <i class="icon-star"></i>
+                                                        <i class="icon-star"></i>
+                                                        <i class="icon-star"></i>
+                                                        <i class="icon-star"></i>
+                                                        <i class="icon-star-o"></i>
+
+                                                    </p>
+                                                </div>
+                                                <div class="two">
+
+                                                    <span class="price">@item.price VNĐ</span>
+                                                </div>
+                                            </div>
+                                            @*   <p>Far far away, behind the word mountains, far from the countries</p>*@
+                                            <p class="days"><span>@item.type_vehicle</span></p>
+                                            <hr>
+                                            <p class="bottom-area d-flex">
+                                                <span>Số lượng : @item.quantity </span>
+                                                <span class="ml-auto"><a href="/PublicCar/DetailCar/@item.vehicle_id">Xem chi tiết</a></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div> <!-- .col-md-8 -->
+        </div>
+    </div>
+</section>
+
