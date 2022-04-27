@@ -6,7 +6,179 @@
 }
 
 <main>
-   
+    <div class="container-fluid px-4">
+        <h4 class="mt-1">Danh sách thuê xe</h4>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                @if (ViewBag.Msg != null)
+                {
+                    if (ViewBag.Msg == "1")
+                    {
+                        <div class="alert alert-success">
+                            <strong>Thành công</strong>
+                        </div>
+                    }
+                }
+            </div>
+
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead style="color:#0d6efd ">
+                        <tr style="background-color: darkgrey">
+                            <th>STT</th>
+                            <th>Người dùng</th>
+                            <th>Ngày thuê</th>
+                            <th>Số ngày thuê</th>
+                            <th>Tên xe</th>
+                            <th>Số lượng xe</th>
+                            <th>Mã voucher</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Người dùng</th>
+                            <th>Ngày thuê</th>
+                            <th>Số ngày thuê</th>
+                            <th>Tên xe</th>
+                            <th>Mã voucher</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{ var stt = 1;}
+                        @foreach (var item in ViewBag.List)
+                        {
+                        <tr>
+                            <td style="width:10px">@stt</td>
+                            <td>
+                                @item.user.fullname
+                            </td>
+                            <td>
+                                @item.date_rental
+                            </td>
+                            <td>
+                                @item.number_day
+                            </td>
+                            <td>
+                                @item.vehicle.name
+                            </td>
+                            <td>
+                                @item.number_vehicle
+                            </td>
+                            @if (item.voucher != null)
+                            {
+
+
+                                <td>
+                                    @item.voucher.name
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                </td>
+                            }
+                            <td>
+                                @item.amount <span>VNĐ</span>
+                            </td>
+                            @if (item.status == 0)
+                            {
+                                <td>
+                                    Chờ xác nhận
+                                </td>
+                            }
+                            else if (item.status == 1)
+                            {
+
+                                <td>
+                                    Đang thuê
+                                </td>
+                            }
+                            else if (item.status == 3)
+                            {
+
+                                <td>
+                                    Đã trả
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Đã hủy
+                                </td>
+                            }
+                            @if (item.status == 0 || item.status == 1)
+                            {
+                                <td>
+                                    @{
+                                        var idEx1 = "exampleModalLabel" + item.rental_id;
+                                    }
+                                    <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#@idEx1">
+                                        Cập nhập
+                                    </button>
+
+                                </td>
+                                <!-- Modal Update-->
+                                <div class="modal fade" id="@idEx1" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Cập nhập trạng thái đơn thuê</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="/AdminRental/Update" class="register-form" id="register-form" enctype="multipart/form-data">
+                                                    <input type="hidden" class="form-control" id="id" name="rental_id" value="@item.rental_id">
+                                                    <div class="mb-3">
+                                                        <label for="category-film"
+                                                               class="col-form-label">Trạng thái:</label>
+                                                        <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="status" required>
+                                                            <option value="" selected>Chọn trạng thái</option>
+                                                            @if (item.status == 0)
+                                                            {
+                                                                <option value="1">Đang thuê</option>
+                                                                <option value="2">Đã hủy</option>
+                                                            }
+                                                            else if (item.status == 1)
+                                                            {
+                                                                <option value="3">Đã trả</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Đóng
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Lưu</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                        </tr>
+                            stt++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </main>
 
 

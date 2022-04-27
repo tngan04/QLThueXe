@@ -3,13 +3,13 @@
     ViewBag.Title = "List ô tô";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
-<div class="hero-wrap js-fullheight" style="background-image: url('https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2020/4/17/799236/KHACH-SAN.jpg'); height: 350px ">
+<div class="hero-wrap js-fullheight" style="background-image: url('https://wallpaperaccess.com/full/840326.jpg'); height: 30px ">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Trang chủ</a></span> <span>Xe</span></p>
-                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Xe trong hệ thống</h1>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Xe ô tô trong hệ thống</h1>
             </div>
         </div>
     </div>
@@ -21,41 +21,36 @@
                 <div class="row">
                     @foreach (var item in ViewBag.List)
                     {
-                        <div class="col-sm col-md-6 col-lg ftco-animate">
-                            <div class="destination">
-                                <a href="/PublicCar/DetailCar/@item.vehicle_id" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/Content/images/@item.image);">
-                                    <div class="icon d-flex justify-content-center align-items-center">
-                                        <span class="icon-search2"></span>
-                                    </div>
-                                </a>
-                                <div class="text p-3">
-                                    <div class="d-flex">
-                                        <div class="one">
-                                            <h3><a href="/PublicCar/DetailCar/@item.vehicle_id">@item.name</a></h3>
-                                            <p class="rate">
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star"></i>
-                                                <i class="icon-star-o"></i>
+                    <div class="col-sm col-md-4 col-lg ftco-animate">
+                        <div class="destination">
 
-                                            </p>
-                                        </div>
-                                        <div class="two">
+                            <a href="/PublicCar/DetailCar/@item.vehicle_id"> <img width="380px" class="img img-2 d-flex justify-content-center align-items-center" src="/Content/images/@item.image"></a>
+                            <div class="text p-3">
+                                <div class="d-flex">
+                                    <div class="one">
+                                        <h3><a href="/PublicCar/DetailCar/@item.vehicle_id">@item.name</a></h3>
+                                        <p class="rate">
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
 
-                                            <span class="price">@item.price VNĐ</span>
-                                        </div>
+
+                                        </p>
                                     </div>
-                                    @*   <p>Far far away, behind the word mountains, far from the countries</p>*@
-                                    <p class="days"><span>@item.type_vehicle</span></p>
-                                    <hr>
-                                    <p class="bottom-area d-flex">
-                                        <span>Số lượng : @item.quantity </span>
-                                        <span class="ml-auto"><a href="/PublicCar/DetailCar/@item.vehicle_id">Xem chi tiết</a></span>
-                                    </p>
+
                                 </div>
+
+                                <p class="days"><span style="font-size:120%">@item.price VNĐ / 1 ngày</span></p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span>Số lượng : @item.quantity </span>
+                                    <span class="ml-auto"><a href="/PublicCar/DetailCar/@item.vehicle_id">Xem chi tiết</a></span>
+                                </p>
                             </div>
                         </div>
+                    </div>
                     }
 
                 </div>

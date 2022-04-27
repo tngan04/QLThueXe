@@ -8,7 +8,7 @@ namespace QuanLyThueXe.Daos
 {
     public class VoucherDao
     {
-        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
+        QuanLyThueXeContext myDb = new QuanLyThueXeContext();
 
         public List<voucher> getAll()
         {
@@ -40,6 +40,8 @@ namespace QuanLyThueXe.Daos
             var obj = myDb.vouchers.FirstOrDefault(x => x.voucher_id == vouchers.voucher_id);
             obj.name = vouchers.name;
             obj.discount = vouchers.discount;
+            obj.quantity = vouchers.quantity;
+            obj.date_expire = vouchers.date_expire;
             myDb.SaveChanges();
         }
 

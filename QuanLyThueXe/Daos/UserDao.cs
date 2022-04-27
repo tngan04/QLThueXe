@@ -10,11 +10,15 @@ namespace QuanLyThueXe.Daos
 {
     public class UserDao
     {
-        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
+        QuanLyThueXeContext myDb = new QuanLyThueXeContext();
 
         public List<user> getAll()
         {
             return myDb.users.ToList();
+        }
+        public List<user> getAllUser()
+        {
+            return myDb.users.OrderBy(x => x.role_id).ToList();
         }
         public bool checkLogin(string email, string password)
         {

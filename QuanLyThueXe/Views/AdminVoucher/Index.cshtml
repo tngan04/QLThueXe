@@ -32,6 +32,8 @@
                             <th>STT</th>
                             <th>Mã voucher</th>
                             <th>Phần trăm giảm giá (%)</th>
+                            <th>Số lượng</th>
+                            <th>Hạn sử dụng</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -55,6 +57,12 @@
                                 @item.discount
                             </td>
                             <td>
+                                @item.quantity
+                            </td>
+                            <td>
+                                @item.date_expire
+                            </td>
+                            <td>
                                 @{
                                     var idEx1 = "exampleModalLabel" + item.voucher_id;
                                     var idModelDel = "exampleModalDel" + item.voucher_id;
@@ -64,34 +72,34 @@
                                     Sửa
                                 </button>
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#@idModelDel" style="width:100px" class="btn btn-danger"> Xóa</button>
-            <div class="modal fade" id="@idModelDel" tabindex="-1"
-                 aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
+                                <div class="modal fade" id="@idModelDel" tabindex="-1"
+                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                            </div>
 
-                        <div class="modal-body">
-                            Voucher : @item.name
-                            <form action="/AdminVoucher/Delete" method="post">
-                                <input type="hidden" class="form-control" id="id" name="voucher_id" value="@item.voucher_id">
-                                <div class="modal-footer" style="margin-top: 20px">
-                                    <button style="width:100px" type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">
-                                        Đóng
-                                    </button>
-                                    <button style="width:100px" type="submit" class="btn btn-danger"> Xóa</button>
+                                            <div class="modal-body">
+                                                Voucher : @item.name
+                                                <form action="/AdminVoucher/Delete" method="post">
+                                                    <input type="hidden" class="form-control" id="id" name="voucher_id" value="@item.voucher_id">
+                                                    <div class="modal-footer" style="margin-top: 20px">
+                                                        <button style="width:100px" type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">
+                                                            Đóng
+                                                        </button>
+                                                        <button style="width:100px" type="submit" class="btn btn-danger"> Xóa</button>
+                                                    </div>
+                                                </form>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
                             </td>
                         </tr>
                             stt++;
@@ -108,7 +116,7 @@
                                         <div class="modal-body">
                                             <form method="POST" action="/AdminVoucher/Update" class="register-form" id="register-form">
                                                 <input type="hidden" class="form-control" id="id" name="voucher_id" value="@item.voucher_id">
-                                                
+
                                                 <div class="mb-3">
                                                     <label for="category-film"
                                                            class="col-form-label">Mã voucher:</label>
@@ -118,6 +126,16 @@
                                                     <label for="category-film"
                                                            class="col-form-label">Phần trăm giảm giá:</label>
                                                     <input type="number" class="form-control" id="category-film" value="@item.discount" name="discount" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="category-film"
+                                                           class="col-form-label">Số lượng:</label>
+                                                    <input type="number" class="form-control" id="category-film" name="quantity" value="@item.quantity" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="category-film"
+                                                           class="col-form-label">Hạn sử dụng:</label>
+                                                    <input type="date" class="form-control" id="category-film" name="date_expire" value="@item.date_expire" required>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
@@ -159,6 +177,16 @@
                         <label for="category-film"
                                class="col-form-label">Phần trăm giảm giá:</label>
                         <input type="number" class="form-control" id="category-film" name="discount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category-film"
+                               class="col-form-label">Số lượng:</label>
+                        <input type="number" class="form-control" id="category-film" name="quantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="category-film"
+                               class="col-form-label">Hạn sử dụng:</label>
+                        <input type="date" class="form-control" id="category-film" name="date_expire" required>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary"

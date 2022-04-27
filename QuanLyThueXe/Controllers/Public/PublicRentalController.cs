@@ -11,7 +11,7 @@ namespace QuanLyThueXe.Controllers.Public
     public class PublicRentalController : Controller
     {
         RentalDao rentalDao = new RentalDao();
-        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
+        QuanLyThueXeContext myDb = new QuanLyThueXeContext();
         // GET: PublicBooking
         public ActionResult Index()
         {

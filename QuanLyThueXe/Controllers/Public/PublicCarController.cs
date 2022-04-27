@@ -12,7 +12,7 @@ namespace QuanLyThueXe.Controllers.Public
     {
         VehicleDao vehicleDao = new VehicleDao();
         VoucherDao voucherDao = new VoucherDao();
-        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
+        QuanLyThueXeContext myDb = new QuanLyThueXeContext();
         RentalDao rentalDao = new RentalDao();
         // GET: PublicCar
         public ActionResult Index()
@@ -35,7 +35,7 @@ namespace QuanLyThueXe.Controllers.Public
             {
                 page = 1;
             }
-            ViewBag.List = vehicleDao.GetOto(page, 10);
+            ViewBag.List = vehicleDao.GetOto(page, 6);
             ViewBag.tag = page;
             ViewBag.pageSize = vehicleDao.GetNumberOto();
             return View();
@@ -47,7 +47,7 @@ namespace QuanLyThueXe.Controllers.Public
             {
                 page = 1;
             }
-            ViewBag.List = vehicleDao.GetXeMay(page, 10);
+            ViewBag.List = vehicleDao.GetXeMay(page, 6);
             ViewBag.tag = page;
             ViewBag.pageSize = vehicleDao.GetNumberXeMay();
             return View();
@@ -164,7 +164,8 @@ namespace QuanLyThueXe.Controllers.Public
                                 voucher_id = voucher.voucher_id,
                                 date_rental = rental.date_rental,
                                 number_day = rental.number_day,
-                                amount = amount,
+                                amount = amount * quantity,
+                                number_vehicle = quantity,
                                 status = 0
                             };
                             rentalDao.Add(objRental);
@@ -189,7 +190,8 @@ namespace QuanLyThueXe.Controllers.Public
                             voucher_id = null,
                             date_rental = rental.date_rental,
                             number_day = rental.number_day,
-                            amount = objVehicle.price* rental.number_day,
+                            amount = objVehicle.price* rental.number_day * quantity,
+                            number_vehicle = quantity,
                             status = 0
                         };
                         rentalDao.Add(objRental);

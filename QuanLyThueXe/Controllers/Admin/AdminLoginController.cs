@@ -22,15 +22,15 @@ namespace QuanLyThueXe.Controllers.Admin
             user users = new user()
             {
                 email = form["email"],
-                password = form["password"]
+                password = userDao.md5(form["password"])
             };
-            
+             
             bool checkLogin = userDao.checkLogin(users.email, users.password);
             if (checkLogin)
             {
                 var userInformation = userDao.getUserByEmail(users.email);
                 Session.Add("Admin", userInformation);
-                if (userInformation.role_id == 1)
+                if (userInformation.role_id == 2)
                 {
                     ViewBag.mess = "Bạn không đủ quyền để truy cập vào trang quản trị";
                     return View("Index");

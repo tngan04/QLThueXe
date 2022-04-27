@@ -27,6 +27,8 @@ namespace QuanLyThueXe.Models
 
         public int? status { get; set; }
 
+        public int? number_vehicle { get; set; }
+
         public virtual user user { get; set; }
 
         public virtual vehicle vehicle { get; set; }

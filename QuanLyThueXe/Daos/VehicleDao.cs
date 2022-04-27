@@ -8,7 +8,7 @@ namespace QuanLyThueXe.Daos
 {
     public class VehicleDao
     {
-        QuanLyXeDbContext myDb = new QuanLyXeDbContext();
+        QuanLyThueXeContext myDb = new QuanLyThueXeContext();
 
         public List<vehicle> getAll()
         {
@@ -22,17 +22,17 @@ namespace QuanLyThueXe.Daos
 
         public List<vehicle> GetVehivleRelated(string type)
         {
-            return myDb.vehicles.Where(x => x.type_vehicle == type).Take(4).ToList();
+            return myDb.vehicles.Where(x => x.type_vehicle == type).Take(3).ToList();
         }
 
         public List<vehicle> GetTop5XeMay()
         {
-            return myDb.vehicles.Where(x => x.type_vehicle == "Xe máy").Take(5).ToList();
+            return myDb.vehicles.Where(x => x.type_vehicle == "Xe máy").Take(3).ToList();
         }
 
         public List<vehicle> GetTop5Oto()
         {
-            return myDb.vehicles.Where(x => x.type_vehicle == "Xe ô tô").Take(5).ToList();
+            return myDb.vehicles.Where(x => x.type_vehicle == "Xe ô tô").Take(3).ToList();
         }
 
         public List<vehicle> GetOto(int page, int pagesize)
@@ -116,6 +116,44 @@ namespace QuanLyThueXe.Daos
                 count++;
             }
             return count;
+        }
+
+        public void add(vehicle vehicles)
+        {
+            myDb.vehicles.Add(vehicles);
+            myDb.SaveChanges();
+        }
+
+        public void delete(int id)
+          {
+              var obj = myDb.vehicles.FirstOrDefault(x => x.vehicle_id == id);
+              myDb.vehicles.Remove(obj);
+              myDb.SaveChanges();
+          }
+
+        /*public void delete(int id)
+        {
+            var obj = myDb.vouchers.FirstOrDefault(x => x.voucher_id == id);
+            obj.status = 0;
+            myDb.SaveChanges();
+        }*/
+
+        public void update(vehicle vehicles)
+        {
+            var obj = myDb.vehicles.FirstOrDefault(x => x.vehicle_id == vehicles.vehicle_id);
+            obj.name = vehicles.name;
+            obj.image = vehicles.image;
+            obj.type_vehicle = vehicles.type_vehicle;
+            obj.price = vehicles.price;
+            obj.quantity = vehicles.quantity;
+            obj.description = vehicles.description;
+            myDb.SaveChanges();
+        }
+        public void updateQuantity(vehicle vehicles)
+        {
+            var obj = myDb.vehicles.FirstOrDefault(x => x.vehicle_id == vehicles.vehicle_id);
+            obj.quantity = vehicles.quantity;
+            myDb.SaveChanges();
         }
     }
 }

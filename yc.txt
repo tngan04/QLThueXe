@@ -1,19 +1,19 @@
 web quản lý thuê xe gồm các chức năng như này:
 Người dùng :
-- Đăng ký(done)
-- Đăng nhập(done)
-- Xem trang chủ hiển thị ra các xe (done)
-- Xem chi tiết về xe(done)
+- Đăng ký
+- Đăng nhập
+- Xem trang chủ hiển thị ra các xe
+- Xem chi tiết về xe
 - Thuê xe (nhập mã voucher để giảm giá)
-- Kiểm tra số lượng voucher trong hệ thống, nếu không còn thì ko giảm tiền(done)
-- Trừ số lượng voucher đi mỗi khi có người dùng sử dụng(done)
-- Khi người dùng sử dụng voucher thì kiểm tra xem voucher còn hạn ko, nếu hết hạn thì ko cho sử dụng(done)
-- Kiểm tra số lượng xe khi người dùng thuê, nếu đủ số lượng thì cho thuê, không đủ thì ko thuê được(done)
-- Khi thuê được thì trừ số lượng xe mà người dùng đã thuê đi(admin duyệt sẽ trừ)
+- Kiểm tra số lượng voucher trong hệ thống, nếu không còn thì ko giảm tiền
+- Trừ số lượng voucher đi mỗi khi có người dùng sử dụng
+- Khi người dùng sử dụng voucher thì kiểm tra xem voucher còn hạn ko, nếu hết hạn thì ko cho sử dụng
+- Kiểm tra số lượng xe khi người dùng thuê, nếu đủ số lượng thì cho thuê, không đủ thì ko thuê được
+- Khi thuê được thì trừ số lượng xe mà người dùng đã thuê đi(ở trạng thái đang thuê) 
 Admin
 - Đăng nhập
-- Quản lý người dùng
-- Quản lý xe ( thêm số lượng)
-- Quản lý đơn thuê xe
+- Quản lý người dùng (hiển thị danh sách, tìm kiếm) 
+- Quản lý xe (thêm mới, sửa, xóa, tìm kiếm, thêm số lượng) 
+- Quản lý đơn thuê xe(hiển thị danh sách, tìm kiếm, cập nhập đơn thuê xe về trạng thái "Đã trả" khi người dùng trả xe)
 - Khi người dùng trả xe thì cộng lại số lượng đó.
-- Quản lý voucher ( thêm số lượng, hạn sử dụng)
+- Quản lý voucher ( thêm số lượng, hạn sử dụng, thêm mới , sửa, xóa, tìm kiếm)

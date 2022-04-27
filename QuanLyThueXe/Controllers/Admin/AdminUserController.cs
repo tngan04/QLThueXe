@@ -15,7 +15,7 @@ namespace QuanLyThueXe.Controllers.Admin
         public ActionResult Index(string msg)
         {
             ViewBag.Msg = msg;
-            ViewBag.List = userDao.getAll();
+            ViewBag.List = userDao.getAllUser();
             return View();
         }
     }
