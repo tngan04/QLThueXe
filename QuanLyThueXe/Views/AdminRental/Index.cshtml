@@ -1,184 +1,147 @@
-﻿
-
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    decimal totalAmount = 0; // Initialize a variable to hold the total rental amount
 }
 
 <main>
     <div class="container-fluid px-4">
-        <h4 class="mt-1">Danh sách thuê xe</h4>
+        <h4 class="mt-1 text-center">Danh sách thuê xe</h4>
 
         <div class="card mb-4">
             <div class="card-header">
-                @if (ViewBag.Msg != null)
+                @if (!string.IsNullOrEmpty(ViewBag.Msg))
                 {
-                    if (ViewBag.Msg == "1")
-                    {
-                        <div class="alert alert-success">
-                            <strong>Thành công</strong>
-                        </div>
-                    }
+                    <div class="alert alert-success">
+                        <strong>Thành công</strong>
+                    </div>
                 }
             </div>
 
             <div class="card-body">
-                <table id="datatablesSimple">
-                    <thead style="color:#0d6efd ">
-                        <tr style="background-color: darkgrey">
+                <table id="datatablesSimple" class="table table-striped table-bordered">
+                    <thead class="thead-light">
+                        <tr style="background-color: darkgrey; color: white;">
                             <th>STT</th>
                             <th>Người dùng</th>
+                            <th>Căn Cước Công Dân</th> <!-- Thêm cột CCCD -->
                             <th>Ngày thuê</th>
                             <th>Số ngày thuê</th>
                             <th>Tên xe</th>
                             <th>Số lượng xe</th>
                             <th>Mã voucher</th>
-                            <th>Tổng tiền</th>
+                            <th>Giá thuê/xe (VNĐ)</th>
+                            <th>Tổng tiền (VNĐ)</th>
                             <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>STT</th>
-                            <th>Người dùng</th>
-                            <th>Ngày thuê</th>
-                            <th>Số ngày thuê</th>
-                            <th>Tên xe</th>
-                            <th>Mã voucher</th>
-                            <th>Tổng tiền</th>
-                            <th>Trạng thái</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </tfoot>
+
                     <tbody>
-                        @{ var stt = 1;}
+                        @{ var stt = 1; }
                         @foreach (var item in ViewBag.List)
                         {
-                        <tr>
-                            <td style="width:10px">@stt</td>
-                            <td>
-                                @item.user.fullname
-                            </td>
-                            <td>
-                                @item.date_rental
-                            </td>
-                            <td>
-                                @item.number_day
-                            </td>
-                            <td>
-                                @item.vehicle.name
-                            </td>
-                            <td>
-                                @item.number_vehicle
-                            </td>
-                            @if (item.voucher != null)
-                            {
+                            // Calculate total rental amount for the current rental item
+                            decimal rentalPrice = (decimal)item.vehicle.price; // Assuming price is stored as int in your model
 
+                            // Check for null and assign a default value if necessary
+                            int numberOfVehicles = item.number_vehicle ?? 0; // Using null-coalescing operator to avoid null reference
+                            int numberOfDays = item.number_day ?? 0; // Get the number of rental days (assuming it can also be null)
 
-                                <td>
-                                    @item.voucher.name
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                </td>
-                            }
-                            <td>
-                                @item.amount <span>VNĐ</span>
-                            </td>
-                            @if (item.status == 0)
-                            {
-                                <td>
-                                    Chờ xác nhận
-                                </td>
-                            }
-                            else if (item.status == 1)
-                            {
+                            // Total for this rental item
+                            decimal totalRentalAmount = rentalPrice * numberOfVehicles * numberOfDays; // Total = price * quantity * days
 
-                                <td>
-                                    Đang thuê
-                                </td>
-                            }
-                            else if (item.status == 3)
-                            {
+                            totalAmount += totalRentalAmount; // Accumulate the total amount for all rentals
 
+                            <tr>
+                                <td>@stt</td>
+                                <td>@item.user.fullname</td>
+                                <td>@item.user.cccd</td> <!-- Thêm cột hiển thị CCCD -->
+                                <td>@item.date_rental.ToString("dd/MM/yyyy")</td> <!-- Format ngày -->
+                                <td>@numberOfDays</td> <!-- Display number of rental days -->
+                                <td>@item.vehicle.name</td>
+                                <td>@numberOfVehicles</td> <!-- Display number of vehicles -->
+                                <td>@(item.voucher != null ? item.voucher.name : "")</td>
+                                <td>@String.Format("{0:N0}", rentalPrice) VNĐ</td> <!-- Display price per vehicle -->
+                                <td>@String.Format("{0:N0}", totalRentalAmount) VNĐ</td> <!-- Display total for this rental -->
                                 <td>
-                                    Đã trả
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Đã hủy
-                                </td>
-                            }
-                            @if (item.status == 0 || item.status == 1)
-                            {
-                                <td>
-                                    @{
-                                        var idEx1 = "exampleModalLabel" + item.rental_id;
+                                    @switch (item.status)
+                                    {
+                                        case 0:
+                                            @:Chờ xác nhận
+                                            break;
+                                        case 1:
+                                            @:Đang thuê
+                                            break;
+                                        case 2:
+                                            @:Đã hủy
+                                            break;
+                                        case 3:
+                                            @:Đã trả
+                                            break;
+                                        default:
+                                            @:Không xác định
+                                            break;
                                     }
-                                    <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#@idEx1">
-                                        Cập nhập
-                                    </button>
-
                                 </td>
-                                <!-- Modal Update-->
-                                <div class="modal fade" id="@idEx1" tabindex="-1"
-                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Cập nhập trạng thái đơn thuê</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="/AdminRental/Update" class="register-form" id="register-form" enctype="multipart/form-data">
-                                                    <input type="hidden" class="form-control" id="id" name="rental_id" value="@item.rental_id">
-                                                    <div class="mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Trạng thái:</label>
-                                                        <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="status" required>
-                                                            <option value="" selected>Chọn trạng thái</option>
-                                                            @if (item.status == 0)
-                                                            {
-                                                                <option value="1">Đang thuê</option>
-                                                                <option value="2">Đã hủy</option>
-                                                            }
-                                                            else if (item.status == 1)
-                                                            {
-                                                                <option value="3">Đã trả</option>
-                                                            }
-                                                        </select>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">
-                                                            Đóng
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">Lưu</button>
-                                                    </div>
-                                                </form>
-                                            </div>
+                                <td>
+                                    @if (item.status == 0 || item.status == 1)
+                                    {
+                                        var idModal = "updateModal" + item.rental_id;
+                                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#@idModal">
+                                            Cập nhật
+                                        </button>
 
+                                        <!-- Modal Update-->
+                                        <div class="modal fade" id="@idModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Cập nhật trạng thái đơn thuê</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form method="POST" action="/AdminRental/Update">
+                                                            <input type="hidden" name="rental_id" value="@item.rental_id" />
+                                                            <div class="mb-3">
+                                                                <label for="status" class="col-form-label">Trạng thái:</label>
+                                                                <select class="form-select" name="status" required>
+                                                                    <option value="" selected>Chọn trạng thái</option>
+                                                                    @if (item.status == 0)
+                                                                    {
+                                                                        <option value="1">Đang thuê</option>
+                                                                        <option value="2">Đã hủy</option>
+                                                                    }
+                                                                    else if (item.status == 1)
+                                                                    {
+                                                                        <option value="3">Đã trả</option>
+                                                                    }
+                                                                </select>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            }
-
-
-                        </tr>
+                                    }
+                                </td>
+                            </tr>
                             stt++;
                         }
+
+                        <tr>
+                            <td colspan="8" class="text-end"><strong>Tổng tiền tất cả:</strong></td>
+                            <td><strong>@String.Format("{0:N0}", totalAmount) VNĐ</strong></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </main>
-
-

@@ -18,22 +18,22 @@ namespace QuanLyThueXe.Controllers.Admin
             ViewBag.List = voucherDao.getAll();
             return View();
         }
-        public ActionResult Add(voucher vouchers)
+        public ActionResult Add(voucher Vouchers)
         {
-            vouchers.status = 1;
-            voucherDao.add(vouchers);
+            Vouchers.status = 1;
+            voucherDao.add(Vouchers);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult Update(voucher vouchers)
+        public ActionResult Update(voucher Vouchers)
         {
-            voucherDao.update(vouchers);
+            voucherDao.update(Vouchers);
             return RedirectToAction("Index", new { msg = "1" });
         }
 
-        public ActionResult Delete(voucher vouchers)
+        public ActionResult Delete(voucher Vouchers)
         {
-            voucherDao.delete(vouchers.voucher_id);
+            voucherDao.delete(Vouchers.voucher_id);
             return RedirectToAction("Index", new { msg = "1" });
         }
     }

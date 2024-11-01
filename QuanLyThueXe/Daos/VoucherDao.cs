@@ -12,42 +12,42 @@ namespace QuanLyThueXe.Daos
 
         public List<voucher> getAll()
         {
-            return myDb.vouchers.Where(x => x.status == 1).ToList();
+            return myDb.Vouchers.Where(x => x.status == 1).ToList();
         }
 
-        public void add(voucher vouchers)
+        public void add(voucher Vouchers)
         {
-            myDb.vouchers.Add(vouchers);
+            myDb.Vouchers.Add(Vouchers);
             myDb.SaveChanges();
         }
 
       /*  public void delete(int id)
         {
-            var obj = myDb.vouchers.FirstOrDefault(x => x.voucher_id == id);
-            myDb.vouchers.Remove(obj);
+            var obj = myDb.Vouchers.FirstOrDefault(x => x.voucher_id == id);
+            myDb.Vouchers.Remove(obj);
             myDb.SaveChanges();
         }*/
 
         public void delete(int id)
         {
-            var obj = myDb.vouchers.FirstOrDefault(x => x.voucher_id == id);
+            var obj = myDb.Vouchers.FirstOrDefault(x => x.voucher_id == id);
             obj.status = 0;
             myDb.SaveChanges();
         }
 
-        public void update(voucher vouchers)
+        public void update(voucher Vouchers)
         {
-            var obj = myDb.vouchers.FirstOrDefault(x => x.voucher_id == vouchers.voucher_id);
-            obj.name = vouchers.name;
-            obj.discount = vouchers.discount;
-            obj.quantity = vouchers.quantity;
-            obj.date_expire = vouchers.date_expire;
+            var obj = myDb.Vouchers.FirstOrDefault(x => x.voucher_id == Vouchers.voucher_id);
+            obj.name = Vouchers.name;
+            obj.discount = Vouchers.discount;
+            obj.quantity = Vouchers.quantity;
+            obj.date_expire = Vouchers.date_expire;
             myDb.SaveChanges();
         }
 
         public voucher GetVoucherByName(string name)
         {
-            return myDb.vouchers.FirstOrDefault(x => x.name == name);
+            return myDb.Vouchers.FirstOrDefault(x => x.name == name);
         }
     }
 }

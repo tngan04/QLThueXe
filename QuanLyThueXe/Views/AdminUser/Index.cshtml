@@ -1,58 +1,57 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <main>
     <div class="container-fluid px-4">
-        <h4 class="mt-1">Danh sách người dùng</h4>
+        <h4 class="mt-1 text-center">Danh sách người dùng</h4>
 
         <div class="card mb-4">
             <div class="card-header">
+                <h5 class="m-0">Thông tin người dùng</h5>
             </div>
 
             <div class="card-body">
-                <table id="datatablesSimple">
-                    <thead style="color:#0d6efd ">
-                        <tr style="background-color: darkgrey">
+                <table id="datatablesSimple" class="table table-striped table-bordered">
+                    <thead class="thead-light">
+                        <tr style="background-color: deepskyblue; color: white;">
                             <th>STT</th>
+                            <th>Ảnh</th>
                             <th>Họ tên</th>
+                            <th>Giới tính</th> <!-- Thêm cột Giới tính -->
                             <th>Email</th>
                             <th>Số điện thoại</th>
-                            
+                            <th>Căn Cước Công Dân</th>
                             <th>Quyền</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>STT</th>
-                            <th>Họ tên</th>
-                            <th>Email</th>
-                            <th>Số điện thoại</th>
-                           
-                            <th>Quyền</th>
-                        </tr>
-                    </tfoot>
+
                     <tbody>
-                        @{ var stt = 1;}
+                        @{ var stt = 1; }
                         @foreach (var item in ViewBag.List)
                         {
-                        <tr>
-                            <td style="width:10px">@stt</td>
-                            <td>
-                                @item.fullname
-                            </td>
-                            <td>
-                                @item.email
-                            </td>
-                            <td>
-                                @item.phonenumber
-                            </td>
-                            <td>
-                                @item.role.name
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>@stt</td>
+                                <td>
+                                    <div class="text-center">
+                                        @if (!string.IsNullOrEmpty(item.profile_picture))
+                                        {
+                                            <img src="@Url.Content("~/UploadedImages/" + item.profile_picture)" alt="Ảnh người dùng" class="img-fluid rounded-circle border" style="width: 50px; height: 50px;" />
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Content/Images/default-profile.png" alt="Ảnh mặc định" class="img-fluid rounded-circle border" style="width: 50px; height: 50px;" />
+                                        }
+                                    </div>
+                                </td>
+                                <td>@item.fullname</td>
+                                <td>@item.gender</td> <!-- Hiển thị giới tính -->
+                                <td>@item.email</td>
+                                <td>@item.phonenumber</td>
+                                <td>@item.cccd</td>
+                                <td>@item.role.name</td>
+                            </tr>
                             stt++;
                         }
                     </tbody>
@@ -61,4 +60,3 @@
         </div>
     </div>
 </main>
-

@@ -12,7 +12,7 @@ namespace QuanLyThueXe.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public voucher()
         {
-            rentals = new HashSet<rental>();
+            Rentals = new HashSet<rental>();
         }
 
         [Key]
@@ -31,6 +31,6 @@ namespace QuanLyThueXe.Models
         public string date_expire { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rental> rentals { get; set; }
+        public virtual ICollection<rental> Rentals { get; set; }
     }
 }

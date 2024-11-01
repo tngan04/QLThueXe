@@ -27,6 +27,8 @@ namespace QuanLyThueXe
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "PublicHome", action = "Index", id = UrlParameter.Optional }
             );
+          
+
         }
     }
 }

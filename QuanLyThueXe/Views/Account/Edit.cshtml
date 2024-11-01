@@ -1,0 +1,110 @@
+﻿@model QuanLyThueXe.Models.user
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+
+<h2 class="text-center mb-4">Chỉnh Sửa Thông Tin Cá Nhân</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Chỉnh Sửa Thông Tin</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Edit", "Account", FormMethod.Post, new { enctype = "multipart/form-data" })) // Thêm enctype
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.user_id) <!-- Giấu user_id -->
+                            @Html.LabelFor(model => model.fullname, "Họ Tên:")
+                            @Html.TextBoxFor(model => model.fullname, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                        </div>
+                        <div>
+                            <label>Giới tính:</label><br />
+                            <input type="radio" id="male" name="gender" value="Nam" checked>
+                            <label for="male">Nam</label><br />
+                            <input type="radio" id="female" name="gender" value="Nữ">
+                            <label for="female">Nữ</label><br />
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.email, "Email:")
+                            @Html.TextBoxFor(model => model.email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.password, "Password:")
+                            @Html.TextBoxFor(model => model.password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.phonenumber, "Số Điện Thoại:")
+                            @Html.TextBoxFor(model => model.phonenumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.cccd, "Căn Cước Công Dân:")
+                            @Html.TextBoxFor(model => model.cccd, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.cccd, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Ảnh Đại Diện Hiện Tại:</label><br />
+                            @if (!string.IsNullOrEmpty(Model.profile_picture))
+                            {
+                                <img src="@Url.Content("~/UploadedImages/" + Model.profile_picture)" alt="Ảnh người dùng" style="width: 150px; height: 150px;" />
+                            }
+                        </div>
+
+                        <div class="form-group">
+                            <label>Tải Lên Ảnh Mới:</label>
+                            <input type="file" name="profile_picture" class="form-control" />
+                        </div>
+
+                        <div class="form-group text-center">
+                            <input type="submit" value="Lưu Thay Đổi" class="btn btn-success" />
+                            <a href="@Url.Action("Profile", "Account", new { userId = Model.user_id })" class="btn btn-secondary ml-2">Hủy</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        font-size: 1.1rem;
+    }
+
+    .card-header {
+        font-size: 1.5rem;
+    }
+
+    .btn-success {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+
+    .btn-secondary {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+</style>

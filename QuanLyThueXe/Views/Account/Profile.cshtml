@@ -1,0 +1,154 @@
+﻿@model QuanLyThueXe.Models.user
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="profile-card card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Hồ Sơ Người Dùng</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        @if (!string.IsNullOrEmpty(Model.profile_picture))
+                        {
+                            <img src="@Url.Content("~/UploadedImages/" + Model.profile_picture)" alt="Ảnh người dùng" class="img-fluid rounded-circle profile-img" />
+                        }
+                        else
+                        {
+                            <img src="~/Content/Images/default-profile.png" alt="Ảnh mặc định" class="img-fluid rounded-circle profile-img" />
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Họ Tên:</strong>
+                                <p>@Model.fullname</p>
+                            </div>
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Giới Tính:</strong>
+                                <p>@Model.gender</p>
+                            </div>
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Email:</strong>
+                                <p>@Model.email</p>
+                            </div>
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Mật Khẩu:</strong>
+                                <p id="password-display">**********</p> <!-- Giấu mật khẩu -->
+                                <a href="@Url.Action("ChangePassword", "PublicAuthentication", new { userId = Model.user_id })" class="btn btn-link">Đổi Mật Khẩu</a>
+                                <button type="button" class="btn btn-link" onclick="togglePassword()">Hiện/Ẩn Mật Khẩu</button>
+                            </div>
+
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Số Điện Thoại:</strong>
+                                <p>@Model.phonenumber</p>
+                            </div>
+                            <div class="mb-3 border rounded bg-light p-3">
+                                <strong>Căn Cước Công Dân:</strong>
+                                <p>@Model.cccd</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="@Url.Action("Edit", "Account", new { userId = Model.user_id })" class="btn btn-warning me-2">Chỉnh Sửa Thông Tin</a>
+                    <a href="@Url.Action("GetRentals", "PublicRental", new { id = ViewBag.userInformation.user_id })" class="btn btn-warning">Xem Lịch Sử Thuê Xe</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function togglePassword() {
+        var passwordDisplay = document.getElementById("password-display");
+        if (passwordDisplay.innerHTML === "**********") {
+            passwordDisplay.innerHTML = "@Model.password"; // Hiện mật khẩu
+        } else {
+            passwordDisplay.innerHTML = "**********"; // Giấu mật khẩu
+        }
+    }
+</script>
+
+<style>
+    /* Tăng cường giao diện cho trang thông tin cá nhân */
+    .profile-card {
+        font-size: 1.2rem;
+        padding: 30px;
+        border-radius: 10px;
+        background: #ffffff; /* Màu nền trắng */
+    }
+
+    .card-header {
+        font-size: 1.7rem;
+        padding: 15px;
+        border-bottom: none;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: 150px;
+        border: 3px solid #007bff; /* Viền màu chính */
+        box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.5);
+    }
+
+    .card-body {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .card-body strong {
+        font-size: 1.2rem; /* Tăng cường kích thước chữ cho tiêu đề */
+        color: #007bff; /* Màu tiêu đề */
+    }
+
+    .card-body p {
+        margin: 0; /* Xóa margin của paragraph */
+        color: #333; /* Màu chữ */
+    }
+
+    .mb-3 {
+        border: 1px solid #ced4da; /* Viền cho ô */
+        border-radius: 5px; /* Bo góc cho ô */
+        background-color: #f8f9fa; /* Màu nền nhẹ cho ô */
+        padding: 15px; /* Padding cho nội dung */
+        transition: transform 0.2s; /* Hiệu ứng khi hover */
+    }
+
+    .mb-3:hover {
+        transform: scale(1.02); /* Phóng to nhẹ khi hover */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng đổ khi hover */
+    }
+
+    .card-footer {
+        padding: 15px;
+    }
+
+    .btn-warning {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+        background-color: #ff9800; /* Màu vàng tươi */
+        border: none;
+    }
+
+    .btn-warning:hover {
+        background-color: #e68a00; /* Màu vàng đậm hơn khi hover */
+    }
+
+    .text-center h4 {
+        font-weight: bold; /* Làm đậm tiêu đề */
+    }
+
+    /* Media query */
+    media (max-width: 768px) {
+        .profile-card {
+            padding: 20px; /* Giảm padding trên thiết bị nhỏ */
+        }
+    }
+</style>

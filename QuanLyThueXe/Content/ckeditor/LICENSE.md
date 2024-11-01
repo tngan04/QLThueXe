@@ -83,7 +83,7 @@ Preamble
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
 License is intended to guarantee your freedom to share and change free
-software-to make sure the software is free for all its users.  This
+software-to make sure the software is free for all its Users.  This
 General Public License applies to most of the Free Software
 Foundation's software and to any other program whose authors commit to
 using it.  (Some other Free Software Foundation software is covered by
@@ -177,7 +177,7 @@ above, provided that you also meet all of these conditions:
     interactive use in the most ordinary way, to print or display an
     announcement including an appropriate copyright notice and a
     notice that there is no warranty (or else, saying that you provide
-    a warranty) and that users may redistribute the program under
+    a warranty) and that Users may redistribute the program under
     these conditions, and telling the user how to view a copy of this
     License.  (Exception: if the Program itself is interactive but
     does not normally print such an announcement, your work based on
@@ -373,7 +373,7 @@ Preamble
   The licenses for most software are designed to take away your
 freedom to share and change it.  By contrast, the GNU General Public
 Licenses are intended to guarantee your freedom to share and change
-free software-to make sure the software is free for all its users.
+free software-to make sure the software is free for all its Users.
 
   This license, the Lesser General Public License, applies to some
 specially designated software packages-typically libraries-of the
@@ -416,7 +416,7 @@ introduced by others.
 
   Finally, software patents pose a constant threat to the existence of
 any free program.  We wish to make sure that a company cannot
-effectively restrict the users of a free program by obtaining a
+effectively restrict the Users of a free program by obtaining a
 restrictive license from a patent holder.  Therefore, we insist that
 any patent license obtained for a version of the library must be
 consistent with the full freedom of use specified in this license.
@@ -460,7 +460,7 @@ operating system, as well as its variant, the GNU/Linux operating
 system.
 
   Although the Lesser General Public License is Less protective of the
-users' freedom, it does ensure that the user of a program that is
+Users' freedom, it does ensure that the user of a program that is
 linked with the Library has the freedom and the wherewithal to run
 that program using a modified version of the Library.
 
@@ -1204,7 +1204,7 @@ Version 1.1
      EXCLUSION OR LIMITATION OF INCIDENTAL OR CONSEQUENTIAL DAMAGES, SO
      THIS EXCLUSION AND LIMITATION MAY NOT APPLY TO YOU.
 
-10. U.S. GOVERNMENT END USERS.
+10. U.S. GOVERNMENT END Users.
 
      The Covered Code is a "commercial item," as that term is defined in
      48 C.F.R. 2.101 (Oct. 1995), consisting of "commercial computer
@@ -1375,7 +1375,7 @@ binary files as long as those fields can be easily viewed by the user.
 3) No Modified Version of the Font Software may use the Reserved Font
 Name(s) unless explicit written permission is granted by the corresponding
 Copyright Holder. This restriction only applies to the primary font name as
-presented to the users.
+presented to the Users.
 
 4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
 Software shall not be used to promote, endorse or advertise any

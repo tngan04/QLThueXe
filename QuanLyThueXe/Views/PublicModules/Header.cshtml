@@ -6,24 +6,52 @@
     @{ var userInfomatiom = (QuanLyThueXe.Models.user)Session["USER"]; }
     <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-
-            <li class="nav-item "><a href="/" class="nav-link">Trang chủ</a></li>
-
-            <li class="nav-item "><a href="/PublicCar/ListXeMay/0" class="nav-link">Xe máy</a></li>
-            <li class="nav-item "><a href="/PublicCar/ListOto/0" class="nav-link">Xe ô tô</a></li>
-
+            <li class="nav-item"><a href="/" class="nav-link">Trang chủ</a></li>
+            <li class="nav-item"><a href="/PublicCar/ListXeMay/0" class="nav-link">Xe máy</a></li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="carDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Xe ô tô
+                </a>
+                <div class="dropdown-menu" aria-labelledby="carDropdown">
+                    <a class="dropdown-item" href="/PublicCar/ListOto?seatingCapacity=4">Xe 4 chỗ</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?seatingCapacity=5">Xe 5 chỗ</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?seatingCapacity=7">Xe 7 chỗ</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="manufacturerDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Chọn Hãng Xe
+                </a>
+                <div class="dropdown-menu" aria-labelledby="manufacturerDropdown">
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Honda">Honda</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Yamaha">Yamaha</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Toyota">Toyota</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Suzuki">Suzuki</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Kawasaki">Kawasaki</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Mazda">Mazda</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Piaggio">Piaggio</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Vinfast">Vinfast</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Lexus">Lexus</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Rolls-Royce">Rolls-Royce</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Lamborghini">Lamborghini</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Kia">Kia</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Mercedes-Benz">Mercedes-Benz</a>
+                    <a class="dropdown-item" href="/PublicCar/ListOto?manufacturer=Bajaj">Bajaj</a>
+                </div>
+            </li>
 
             @if (userInfomatiom != null)
             {
-                <li class="nav-item"><a href="/PublicRental/GetRentals/@userInfomatiom.user_id" class="nav-link">Lịch sử thuê xe</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">@userInfomatiom.fullname</a></li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Profile", "Account", new { userId = userInfomatiom.user_id })" class="nav-link">Xem Hồ Sơ</a>
+                </li>
                 <li class="nav-item cta"><a href="/PublicAuthentication/Logout" class="nav-link"><span>Đăng xuất</span></a></li>
             }
             else
             {
                 <li class="nav-item cta"><a href="/PublicAuthentication/Login" class="nav-link"><span>Đăng nhập</span></a></li>
+                <li class="nav-item cta"><a href="/PublicAuthentication/Register" class="nav-link"><span>Đăng ký</span></a></li>
             }
         </ul>
     </div>
 </div>
-

@@ -1,0 +1,146 @@
+﻿@model QuanLyThueXe.Models.user
+
+@{
+    ViewBag.Title = "Đăng Ký";
+    Layout = "~/Views/Shared/_LayoutPublic.cshtml";
+}
+<div class="hero-wrap js-fullheight" style="background-image: url('https://wallpaperaccess.com/full/840326.jpg'); height:60px">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+            <div class="col-md-9 " style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Đăng ký </strong> </h1>
+                <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></p>
+            </div>
+        </div>
+    </div>
+</div>
+<h2 class="text-center mb-4">Đăng Ký Tài Khoản</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Đăng Ký</h4>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-danger text-center">@ViewBag.Message</div>
+                    }
+                <form action="/PublicAuthentication/Register" method="post" enctype="multipart/form-data" class="p-4 border rounded">
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="fullname">Họ và Tên</label>
+                            <input type="text" id="fullname" name="fullname" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="email">Email</label>
+                            <input type="text" id="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="phonenumber">Số điện thoại</label>
+                            <input type="text" id="phonenumber" name="phonenumber" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="cccd">CCCD</label>
+                            <input type="text" id="cccd" name="cccd" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="password">Mật khẩu</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="rePassword">Nhập lại mật khẩu</label>
+                            <input type="password" id="rePassword" name="rePassword" class="form-control" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Giới tính:</label><br />
+                        <input type="radio" id="male" name="gender" value="Nam" checked>
+                        <label for="male">Nam</label><br />
+                        <input type="radio" id="female" name="gender" value="Nữ">
+                        <label for="female">Nữ</label><br />
+                    </div>
+                    <div class="row form-group mb-4">
+                        <div class="col-md-12 mb-3 mb-md-0">
+                            <label class="text-black" for="profile_picture">Ảnh đại diện</label>
+                            <input type="file" id="profile_picture" name="profile_picture" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <input type="submit" value="Đăng ký" class="btn btn-block btn-primary btn-md">
+                        </div>
+
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        font-size: 1.1rem;
+    }
+
+    .card-header {
+        font-size: 1.5rem;
+    }
+
+    .btn-success {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+
+    .btn-secondary {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+</style>
+<script>
+    document.getElementById("registerForm").onsubmit = function () {
+        var cccdInput = document.getElementById("cccdInput").value;
+        var emailInput = document.getElementById("emailInput").value;
+
+        // Kiểm tra CCCD
+        if (cccdInput.length !== 12 || !/^\d+$/.test(cccdInput)) {
+            alert("CCCD phải có 12 số.");
+            return false; // Ngăn không cho form submit
+        }
+
+        // Kiểm tra Email
+        var emailPattern = /^[a-zA-Z0-9._%+-]+[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Biểu thức chính quy cho email
+        if (!emailPattern.test(emailInput)) {
+            alert("Email không đúng định dạng.");
+            return false; // Ngăn không cho form submit
+        }
+
+        // Bạn có thể thực hiện yêu cầu AJAX ở đây để kiểm tra trùng lặp trong cơ sở dữ liệu
+
+        return true; // Cho phép form submit
+    };
+</script>

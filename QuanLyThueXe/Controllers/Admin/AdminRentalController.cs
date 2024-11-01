@@ -12,28 +12,44 @@ namespace QuanLyThueXe.Controllers.Admin
     {
         RentalDao rentalDao = new RentalDao();
         VehicleDao vehicleDao = new VehicleDao();
-        // GET: AdminVoucher
+
+        // GET: AdminRental
         public ActionResult Index(string msg)
         {
             ViewBag.Msg = msg;
             ViewBag.List = rentalDao.getAll();
             return View();
         }
-        public ActionResult Update(rental rentals)
+
+        public ActionResult Update(rental Rentals)
         {
-            rental booking = rentalDao.getRentalID(rentals.rental_id);
-            vehicle vehicles = vehicleDao.GetVehicleById(booking.vehicle_id);
-            if (rentals.status == 1)
+            // Lấy thông tin booking từ ID
+            rental booking = rentalDao.getRentalID(Rentals.rental_id);
+            vehicle Vehicles = vehicleDao.GetVehicleById(booking.vehicle_id);
+
+            // Tính tổng tiền thuê
+          
+            // Cập nhật trạng thái và số lượng xe
+            if (Rentals.status == 1) // Đang thuê
             {
-                vehicles.quantity = vehicles.quantity - booking.number_vehicle;
+                Vehicles.quantity -= Rentals.number_vehicle; // Giảm số lượng xe
             }
-            if (rentals.status == 3)
+            else if (Rentals.status == 3) // Đã trả
             {
-                vehicles.quantity = vehicles.quantity + booking.number_vehicle;
+                Vehicles.quantity += Rentals.number_vehicle; // Tăng số lượng xe
             }
-            vehicleDao.updateQuantity(vehicles);
-            rentalDao.update(rentals);
-            return RedirectToAction("Index", new { msg = "1" });
+
+  
+    
+
+            // Cập nhật số lượng xe trong kho
+            vehicleDao.Update(Vehicles);
+            rentalDao.update(Rentals); // Cập nhật booking
+
+            return RedirectToAction("Index", new { msg = "Cập nhật thành công" });
         }
+
+
     }
+
 }

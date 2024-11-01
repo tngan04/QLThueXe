@@ -1,6 +1,6 @@
-﻿
+﻿@model QuanLyThueXe.Models.user
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Đăng Nhập";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
 <div class="hero-wrap js-fullheight" style="background-image: url('https://wallpaperaccess.com/full/840326.jpg'); height:60px">
@@ -8,165 +8,49 @@
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
             <div class="col-md-9 " style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
-                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Đăng ký hoặc Đăng nhập</strong> </h1>
+                <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong> Đăng nhập</strong> </h1>
                 <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"></p>
             </div>
         </div>
     </div>
 </div>
-@if (ViewBag.mess == "Success")
-{
-    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 40PX;z-index: 2000;width: 300px">
+<h2 class="text-center mb-4">Đăng Nhập</h2>
 
-        <script>
-            swal({
-                title: 'Đăng ký thành công!',
-                /* text: 'Redirecting...', */
-                icon: 'success',
-                timer: 3000,
-                buttons: true,
-                type: 'success'
-            })
-        </script>
-    </div>
-}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4>Đăng Nhập</h4>
+                </div>
+                <div class="card-body">
+                    <form action="/PublicAuthentication/Login" method="post" class="p-4 border rounded">
+                        <div class="row form-group">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="fname">Email</label>
+                                <input type="text" id="fname" name="email" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="row form-group mb-4">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label class="text-black" for="fname">Mật khẩu</label>
+                                <input type="password" id="fname" name="password" class="form-control" required>
+                            </div>
+                        </div>
 
-@if (ViewBag.mess == "ErrorExist")
-{
-
-    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
-        <script>
-            swal({
-                title: 'Tên người dùng đã tồn tại!',
-                /* text: 'Redirecting...', */
-                icon: 'error',
-                timer: 3000,
-                buttons: true,
-                type: 'success'
-            })
-        </script>
-    </div>
-}
-@if (ViewBag.mess == "ErrorPassword")
-{
-
-    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
-        <script>
-            swal({
-                title: 'Hai mật khẩu không trùng khớp',
-                /* text: 'Redirecting...', */
-                icon: 'error',
-                timer: 3000,
-                buttons: true,
-                type: 'success'
-            })
-        </script>
-    </div>
-}
-
-@if (ViewBag.mess == "Error")
-{
-
-    <div class="toast" data-delay="1000" style="position:fixed; top: 100PX; left: 10PX;z-index: 2000;width: 300px">
-        <script>
-            swal({
-                title: 'Thông tin tài khoản hoặc mật khẩu không chính xác',
-                /* text: 'Redirecting...', */
-                icon: 'error',
-                timer: 3000,
-                buttons: true,
-                type: 'success'
-            })
-        </script>
-    </div>
-}
-<!-- HOME -->
-<section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');" id="home-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h1 class="text-white font-weight-bold">Đăng ký/ Đăng nhập</h1>
-
-            </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <input type="submit" value="Đăng nhập" class="btn btn-block btn-primary btn-md">
+                            </div>
+                            <div class="col-md-6">
+                                <a href="/PublicAuthentication/Register" class="btn btn-block btn-secondary btn-md">Đăng ký</a>
+                            </div>
+                        </div>
+                  
+                  
+                    </form>
+                </div>
         </div>
     </div>
-</section>
-
-<section class="site-section">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 mb-5">
-                <h2 class="mb-4">Đăng ký</h2>
-                <form action="/PublicAuthentication/Register" method="post" class="p-4 border rounded">
-
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Họ và tên</label>
-                            <input type="text" id="email" name="fullName" class="form-control" required>
-                        </div>
-                    </div>                  
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Mật khẩu</label>
-                            <input type="password" id="" name="password" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Nhập lại mật khẩu</label>
-                            <input type="password" id="fname" name="rePassword" class="form-control" required>
-                        </div>
-                    </div>                                  
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Số điện thoại</label>
-                            <input type="text" id="fname" name="phoneNumber" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <input type="submit" value="Đăng ký" class="btn px-4 btn-primary text-white">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="col-lg-6">
-                <h2 class="mb-4">Đăng nhập</h2>
-                <form action="/PublicAuthentication/Login" method="post" class="p-4 border rounded">
-
-                    <div class="row form-group">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Email</label>
-                            <input type="text" id="fname" name="email" class="form-control" required>
-                        </div>
-                    </div>
-                    <div class="row form-group mb-4">
-                        <div class="col-md-12 mb-3 mb-md-0">
-                            <label class="text-black" for="fname">Mật khẩu</label>
-                            <input type="password" id="fname" name="password" class="form-control" required>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <div class="col-md-6">
-                            <input type="submit" value="Đăng nhập" class="btn btn-block btn-primary btn-md">
-                        </div>
-                        <div class="col-md-6">
-
-
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-
+</div>
+ </div>

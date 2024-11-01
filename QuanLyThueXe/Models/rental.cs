@@ -1,4 +1,4 @@
-namespace QuanLyThueXe.Models
+﻿namespace QuanLyThueXe.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,21 +18,29 @@ namespace QuanLyThueXe.Models
 
         public int? voucher_id { get; set; }
 
-        [StringLength(255)]
-        public string date_rental { get; set; }
+        [Column(TypeName = "date")]
+        public DateTime date_rental { get; set; }
 
         public int? number_day { get; set; }
 
-        public int? amount { get; set; }
+        public decimal amount { get; set; }
 
         public int? status { get; set; }
 
         public int? number_vehicle { get; set; }
 
+        public decimal? tiendatcocxe { get; set; }
+
+        // Mối quan hệ với bảng User
+        [ForeignKey("user_id")]
         public virtual user user { get; set; }
 
+        // Mối quan hệ với bảng Vehicle
+        [ForeignKey("vehicle_id")]
         public virtual vehicle vehicle { get; set; }
 
+        // Mối quan hệ với bảng Voucher
+        [ForeignKey("voucher_id")]
         public virtual voucher voucher { get; set; }
     }
 }

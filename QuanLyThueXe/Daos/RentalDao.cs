@@ -12,30 +12,30 @@ namespace QuanLyThueXe.Daos
 
         public List<rental> getAll()
         {
-            return myDb.rentals.ToList();
+            return myDb.Rentals.ToList();
         }
         public void Add(rental rental)
         {
-            myDb.rentals.Add(rental);
+            myDb.Rentals.Add(rental);
             myDb.SaveChanges();
         }
         public rental getRentalID(int id)
         {
-            return myDb.rentals.FirstOrDefault(x => x.rental_id == id);
+            return myDb.Rentals.FirstOrDefault(x => x.rental_id == id);
         }
         public List<rental> getRetalUserId(int userId)
         {
-            return myDb.rentals.Where(x => x.user_id == userId).ToList();
+            return myDb.Rentals.Where(x => x.user_id == userId).ToList();
         }
         public List<rental> getRetalVehicle(int id)
         {
-            return myDb.rentals.Where(x => x.vehicle_id == id).ToList();
+            return myDb.Rentals.Where(x => x.vehicle_id == id).ToList();
         }
 
-        public void update(rental rentals)
+        public void update(rental Rentals)
         {
-            var obj = myDb.rentals.FirstOrDefault(x => x.rental_id == rentals.rental_id);
-            obj.status = rentals.status;
+            var obj = myDb.Rentals.FirstOrDefault(x => x.rental_id == Rentals.rental_id);
+            obj.status = Rentals.status;
             myDb.SaveChanges();
         }
     }

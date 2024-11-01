@@ -1,19 +1,23 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "List ô tô";
     Layout = "~/Views/Shared/_LayoutPublic.cshtml";
 }
-<div class="hero-wrap js-fullheight" style="background-image: url('https://wallpaperaccess.com/full/840326.jpg'); height: 30px ">
+
+<div class="hero-wrap js-fullheight" style="background-image: url('https://wallpaperaccess.com/full/840326.jpg'); height: 30px;">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-            <div class="col-md-9 text-center" style="margin-top: 200px" data-scrollax=" properties: { translateY: '70%' }">
+            <div class="col-md-9 text-center" style="margin-top: 200px;" data-scrollax="properties: { translateY: '70%' }">
                 <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="/">Trang chủ</a></span> <span>Xe</span></p>
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Xe ô tô trong hệ thống</h1>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Filter Section -->
+
+
 <section class="ftco-section ftco-degree-bg">
     <div class="container-fluid">
         <div class="row">
@@ -21,82 +25,70 @@
                 <div class="row">
                     @foreach (var item in ViewBag.List)
                     {
-                    <div class="col-md-4">
-                        <div class="destination">
-
-                            <a href="/PublicCar/DetailCar/@item.vehicle_id"> <img style="width: 100%;height:300px; object-fit: cover;" class="img img-2 d-flex justify-content-center align-items-center" src="/Content/images/@item.image"></a>
-                            <div class="text p-3">
-                                <div class="d-flex">
-                                    <div class="one">
-                                        <h3><a href="/PublicCar/DetailCar/@item.vehicle_id">@item.name</a></h3>
-                                        <p class="rate">
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-                                            <i class="icon-star"></i>
-
-
-                                        </p>
+                        <div class="col-md-4">
+                            <div class="destination">
+                                <a href="/PublicCar/DetailCar/@item.vehicle_id">
+                                    <img style="width: 100%; height: 300px; object-fit: cover;" class="img img-2 d-flex justify-content-center align-items-center" src="/Content/images/@item.image">
+                                </a>
+                                <div class="text p-3">
+                                    <div class="d-flex">
+                                        <div class="one">
+                                            <h3><a href="/PublicCar/DetailCar/@item.vehicle_id">@item.name</a></h3>
+                                            <p class="rate">
+                                                @for (int j = 0; j < 5; j++)
+                                                {
+                                                    <i class="icon-star"></i>
+                                                }
+                                            </p>
+                                        </div>
                                     </div>
-
+                                    <p class="days"><span style="font-size: 120%">@item.price VNĐ / 1 ngày</span></p>
+                                    <p class="text-right"> <span style="font-size: 120%">@item.fuel_type </span> </p>
+                                    <hr>
+                                    <p class="bottom-area d-flex">
+                                        <span>Số lượng : @item.quantity </span>
+                                        <span class="ml-auto"><a href="/PublicCar/DetailCar/@item.vehicle_id">Xem chi tiết</a></span>
+                                    </p>
                                 </div>
-
-                                <p class="days"><span style="font-size:120%">@item.price VNĐ / 1 ngày</span></p>
-                                <hr>
-                                <p class="bottom-area d-flex">
-                                    <span>Số lượng : @item.quantity </span>
-                                    <span class="ml-auto"><a href="/PublicCar/DetailCar/@item.vehicle_id">Xem chi tiết</a></span>
-                                </p>
                             </div>
                         </div>
-                    </div>
                     }
-
                 </div>
+
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27">
                             <ul>
-                                @if (ViewBag.tag > 1)
+                                @if (ViewBag.currentPage > 1)
                                 {
-                                    int b = ViewBag.tag - 1;
-                                    <li><a href="/PublicCar/ListOto/@b">&lt;</a></li>
+                                    int previousPage = ViewBag.currentPage - 1;
+                                    <li><a href="/PublicCar/ListOto/@previousPage">&lt;</a></li>
+                                }
 
-                                }
-                                else
+                                @for (var i = 1; i <= ViewBag.totalPages; i++)
                                 {
-                                    <li></li>
-                                }
-                                @for (var i = 1; i <= ViewBag.pageSize; i++)
-                                {
-                                    if (ViewBag.tag == i)
+                                    if (ViewBag.currentPage == i)
                                     {
-                                        <li class="active"><a href="/PublicCar/ListOto/@i">@i</a></li>
+                                        <li class="active"><a href="javascript:void(0);">@i</a></li>
+                                        <!-- Trang hiện tại -->
                                     }
                                     else
                                     {
                                         <li><a href="/PublicCar/ListOto/@i">@i</a></li>
+                                        <!-- Liên kết đến trang khác -->
                                     }
-
                                 }
 
-                                @if (ViewBag.tag < ViewBag.pageSize)
+                                @if (ViewBag.currentPage < ViewBag.totalPages)
                                 {
-                                    int a = ViewBag.tag + 1;
-                                    <li><a href="/PublicCar/ListOto/@a">&gt;</a></li>
-
+                                    int nextPage = ViewBag.currentPage + 1;
+                                    <li><a href="/PublicCar/ListOto/@nextPage">&gt;</a></li>
                                 }
-                                else
-                                {
-                                    <li></li>
-                                }
-
                             </ul>
                         </div>
                     </div>
                 </div>
-            </div> <!-- .col-md-8 -->
+            </div> <!-- .col-lg-12 -->
         </div>
     </div>
 </section> <!-- .section -->

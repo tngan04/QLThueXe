@@ -12,8 +12,8 @@ namespace QuanLyThueXe.Controllers.Admin
         // GET: AdminHome
         public ActionResult Index()
         {
-            var users = (user)Session["Admin"];
-            if(users != null)
+            var Users = (user)Session["Admin"];
+            if(Users != null)
             {
                 return View();
             }

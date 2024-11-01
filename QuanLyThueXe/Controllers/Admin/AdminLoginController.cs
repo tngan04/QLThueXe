@@ -19,16 +19,16 @@ namespace QuanLyThueXe.Controllers.Admin
         [HttpPost]
         public ActionResult Login(FormCollection form)
         {
-            user users = new user()
+            user Users = new user()
             {
                 email = form["email"],
                 password = userDao.md5(form["password"])
             };
              
-            bool checkLogin = userDao.checkLogin(users.email, users.password);
+            bool checkLogin = userDao.checkLogin(Users.email, Users.password);
             if (checkLogin)
             {
-                var userInformation = userDao.getUserByEmail(users.email);
+                var userInformation = userDao.getUserByEmail(Users.email);
                 Session.Add("Admin", userInformation);
                 if (userInformation.role_id == 2)
                 {

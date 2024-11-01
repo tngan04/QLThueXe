@@ -1,22 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace QuanLyThueXe.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
     [Table("vehicle")]
     public partial class vehicle
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public vehicle()
-        {
-            rentals = new HashSet<rental>();
-        }
-
         [Key]
+        [Column("vehicle_id")]
         public int vehicle_id { get; set; }
+
 
         [StringLength(255)]
         public string name { get; set; }
@@ -33,7 +28,27 @@ namespace QuanLyThueXe.Models
 
         public int? quantity { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<rental> rentals { get; set; }
+        public int? number_vehicle { get; set; }
+
+        [ForeignKey("Manufacturer")]
+        [Column("manufacturer_id")]
+        public int? manufacturer_id { get; set; } // Thay đổi từ int thành int?
+
+        // Thuộc tính liên kết với Manufacturer
+        public virtual Manufacturer Manufacturer { get; set; }
+
+
+        [StringLength(50)]
+        public string fuel_type { get; set; }
+
+        // Xóa thuộc tính Manufacturer
+        // public virtual Manufacturer Manufacturer { get; set; } // Mối quan hệ với bảng manufacturer
+
+        public virtual ICollection<rental> Rentals { get; set; }
+
+        public vehicle()
+        {
+            Rentals = new HashSet<rental>();
+        }
     }
 }

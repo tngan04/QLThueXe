@@ -1,313 +1,363 @@
-﻿
+﻿@model IEnumerable<QuanLyThueXe.Models.vehicle>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Quản lý xe";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<main>
-    <div class="container-fluid px-4">
-        <h4 class="mt-1">Danh sách Xe</h4>
+<h2>Danh sách xe</h2>
 
-        <div class="card mb-4">
-            <div class="card-header">
-                @if (ViewBag.Msg != null)
-                {
-                    if (ViewBag.Msg == "1")
-                    {
-                        <div class="alert alert-success">
-                            <strong>Thành công</strong>
-                        </div>
-                    }
-                    if (ViewBag.Msg == "2")
-                    {
-                        <div class="alert alert-danger">
-                            <strong>Xe có trong lịch sử thuê, không thể xóa!</strong>
-                        </div>
-                    }
-                }
-                <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                        data-bs-target="#exampleModalAdd">
-                    Thêm mới
-                </button>
-            </div>
-
-            <div class="card-body">
-                <table id="datatablesSimple">
-                    <thead style="color:#0d6efd ">
-                        <tr style="background-color: darkgrey">
-                            <th>STT</th>
-                            <th>Tên xe</th>
-                            <th>Ảnh</th>
-                            <th>Loại xe</th>
-                            <th>Số lượng</th>
-                            <th>Giá thuê</th>
-                            <th>Mô tả</th>
-                            <th>Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tên xe</th>
-                            <th>Ảnh</th>
-                            <th>Loại xe</th>
-                            <th>Giá thuê</th>
-                            <th>Mô tả</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        @{ var stt = 1;}
-                        <input type="hidden" value="@ViewBag.List.Count" id="dodai" />
-                        @foreach (var item in ViewBag.List)
-                        {
-                            var nameModelDes = "exampleModalDes" + item.vehicle_id;
-                    <tr>
-                        <td style="width:10px">@stt</td>
-                        <td>
-                            @item.name
-                        </td>
-                        <td>
-                            <img style="width: 200px !important;height: 150px !important;" src="~/Content/images/@item.image"
-                                 class="img-fluid">
-                        </td>
-                        <td>
-                            @item.type_vehicle
-                        </td>
-                        <td>
-                            @item.quantity
-                        </td>
-                        <td>
-                            @item.price <span>VNĐ / 1 ngày</span>
-                        </td>
-                        <td>
-                            <a href="" data-bs-toggle="modal" data-bs-target="#@nameModelDes">Xem</a>
-                        </td>
-                        <td>
-                            @{
-                                var idEx1 = "exampleModalLabel" + item.vehicle_id;
-                                var idModelDel = "exampleModalDel" + item.vehicle_id;
-                                var edit = "comment" + stt;
-                            }
-                            <button style="width:100px" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#@idEx1">
-                                Sửa
-                            </button>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#@idModelDel" style="width:100px" class="btn btn-danger"> Xóa</button>
-                        </td>
-                        <div class="modal fade" id="@idModelDel" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa ?</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-
-                                    <div class="modal-body">
-                                        Xe : @item.name
-                                        <form action="/AdminVehicle/Delete" method="post">
-                                            <input type="hidden" class="form-control" id="id" name="vehicle_id" value="@item.vehicle_id">
-                                            <div class="modal-footer" style="margin-top: 20px">
-                                                <button style="width:100px" type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                    Đóng
-                                                </button>
-                                                <button style="width:100px" type="submit" class="btn btn-danger"> Xóa</button>
-                                            </div>
-                                        </form>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal Update-->
-                        <div class="modal fade" id="@idEx1" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Cập nhập xe</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" action="/AdminVehicle/Update" class="register-form" id="register-form" enctype="multipart/form-data">
-                                            <input type="hidden" class="form-control" id="id" name="vehicle_id" value="@item.vehicle_id">
-
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Tên xe:</label>
-                                                        <input type="text" class="form-control" id="category-film" name="name" required value="@item.name">
-                                                    </div>
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Giá thuê trên 1 ngày:</label>
-                                                        <input type="number" class="form-control" id="category-film" name="price" required value="@item.price">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Loại xe:</label>
-                                                        <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="type_vehicle" required>
-                                                            @if (item.type_vehicle == "Xe máy")
-                                                            {
-                                                                <option value="Xe máy" selected>Xe máy</option>
-                                                                <option value="Xe ô tô">Xe ô tô</option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="Xe máy" >Xe máy</option>
-                                                                <option value="Xe ô tô" selected>Xe ô tô</option>
-                                                            }
-
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Số lượng:</label>
-                                                        <input type="number" class="form-control" id="category-film" name="quantity" required value="@item.quantity">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Ảnh:</label>
-                                                        <input type="file" name="file" class="form-control-file"
-                                                               id="exampleFormControlFile1" >
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Mô tả:</label>
-                                                        <textarea name="description" id="@edit" cols="30"
-                                                                  rows="30">@Html.Raw(item.description)</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                    Đóng
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">Lưu</button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal Descrip-->
-                        <div class="modal fade" id="@nameModelDes" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-xl">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">@item.name</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>@Html.Raw(item.description)</p>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </tr>
-                            stt++;
-                        }
-                        <div class="modal fade" id="exampleModalAdd" tabindex="-1"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Thêm mới</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="POST" action="/AdminVehicle/Add" class="register-form" id="register-form" enctype="multipart/form-data">
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Tên xe:</label>
-                                                        <input type="text" class="form-control" id="category-film" name="name" required>
-                                                    </div>
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Giá thuê trên 1 ngày:</label>
-                                                        <input type="number" class="form-control" id="category-film" name="price" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Loại xe:</label>
-                                                        <select class="form-select" aria-label="Default select example" id="theloai" tabindex="8" name="type_vehicle" required>
-                                                            <option value="Xe máy" selected>Xe máy</option>
-                                                            <option value="Xe ô tô">Xe ô tô</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="col-6 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Số lượng:</label>
-                                                        <input type="number" class="form-control" id="category-film" name="quantity" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Ảnh:</label>
-                                                        <input type="file" name="file" class="form-control-file"
-                                                               id="exampleFormControlFile1" required>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-12 mb-3">
-                                                        <label for="category-film"
-                                                               class="col-form-label">Mô tả:</label>
-                                                        <textarea name="description" id="editor" cols="30"
-                                                                  rows="30"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">Save </button>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+@if (ViewBag.Msg != null)
+{
+    <div class="alert alert-success">
+        @ViewBag.Msg
     </div>
-    <script>
+}
 
-            CKEDITOR.replace("editor");
+<!-- Bộ lọc số chỗ ngồi -->
+<form method="get" action="@Url.Action("Index")">
+    <label for="seatFilter">Lọc theo số chỗ ngồi:</label>
+    <select id="seatFilter" name="seatFilter">
+        <option value="">Tất cả</option>
+        <option value="4" @(ViewBag.SeatFilter == "4" ? "selected" : "")>4 chỗ</option>
+        <option value="5" @(ViewBag.SeatFilter == "5" ? "selected" : "")>5 chỗ</option>
+        <option value="7" @(ViewBag.SeatFilter == "7" ? "selected" : "")>7 chỗ</option>
+    </select>
+    <button type="submit">Lọc</button>
+</form>
 
-    </script>
-    <script>
-            var dodai = document.getElementById("dodai").value;
 
-            for (var i = 1; i <= dodai; i++) {
-                var name = "comment" + i
-                CKEDITOR.replace(name);
+<!-- Nút thêm mới xe -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addVehicleModal">Thêm mới xe</button>
+
+<!-- Bảng danh sách xe -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>Hãng xe</th>
+            <th>Tên</th>
+            <th>Loại</th>
+            <th>Nhiên liệu</th>
+            <th>Số lượng</th>
+            <th>Số chỗ ngồi</th>
+            <th>Giá</th>
+            <th>Mô tả</th>
+            <th>Hình ảnh</th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var vehicle in Model)
+            {
+                <tr>
+                  <td>
+                      @if (vehicle.Manufacturer != null)
+                      {
+                          @vehicle.Manufacturer.name
+                      }
+                      else
+                      {
+                          <span>Không có hãng xe</span>
+                      }
+                  </td>
+                    <td>@vehicle.name</td>
+                    <td>@vehicle.type_vehicle</td>
+                    <td>@vehicle.fuel_type</td>
+                    <td>@vehicle.quantity</td>
+                    <td>@vehicle.number_vehicle</td>
+                    <td>@String.Format("{0:C}", vehicle.price)</td>
+                    <td>@vehicle.description</td>
+                    <td>
+                        <img src="@Url.Content("~/Content/images/" + vehicle.image)" alt="Image" width="50" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateVehicleModal"
+                                data-id="@vehicle.vehicle_id"
+                                data-man="@vehicle.Manufacturer != null ? vehicle.Manufacturer.manufacturer_id : 0"
+                                data-name="@vehicle.name"
+                                data-type="@vehicle.type_vehicle"
+                                data-fuel="@vehicle.fuel_type"
+                                data-quantity="@vehicle.quantity"
+                                data-number="@vehicle.number_vehicle"
+                                data-price="@vehicle.price"
+                                data-description="@vehicle.description"
+                                data-image="@vehicle.image">
+                            Sửa
+                        </button>
+
+                        <a href="@Url.Action("Delete", "AdminVehicle", new { id = vehicle.vehicle_id })" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Xóa</a>
+                    </td>
+                </tr>
             }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9">Không có xe nào để hiển thị.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal thêm xe -->
+<div class="modal fade" id="addVehicleModal" tabindex="-1" aria-labelledby="addVehicleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="@Url.Action("Add", "AdminVehicle")" method="post" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addVehicleModalLabel">Thêm mới xe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="manufacturer_id">Hãng Xe</label>
+                        <select class="form-control" name="manufacturer_id" id="manufacturer_id" required>
+                            <option value="">Chọn hãng xe</option>
+                            @if (ViewBag.manufacturer_ids != null)
+                            {
+                                foreach (var manufacturer_id in ViewBag.manufacturer_ids)
+                                {
+                                    <option value="@manufacturer_id.manufacturer_id">@manufacturer_id.name</option>
+ <!-- Đảm bảo sử dụng manufacturer_id -->
+                                }
+                            }
+                            else
+                            {
+                                <option value="">Không có hãng xe nào.</option>
+                            }
+                        </select>
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên xe</label>
+                        <input type="text" class="form-control" name="name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="type_vehicle" class="form-label">Loại xe</label>
+                        <select name="type_vehicle" class="form-select" required>
+                            <option value="Xe ô tô">Xe ô tô</option>
+                            <option value="Xe máy">Xe máy</option>
+                        </select>
+
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Số lượng</label>
+                        <input type="number" class="form-control" name="quantity" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="number_vehicle" class="form-label">Số chỗ ngồi</label>
+                        <select id="number_vehicle" name="number_vehicle" class="form-select" required>
+                            <option value="4">4 chỗ</option>
+                            <option value="5">5 chỗ</option>
+                            <option value="7">7 chỗ</option>
+                            <option value="2">2 chỗ</option>
+                        </select>
+
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Giá</label>
+                        <input type="number" class="form-control" name="price" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="fuel_type" class="form-label">Loại nhiên liệu</label>
+                        <input type="text" class="form-control" name="fuel_type" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Mô tả</label>
+                        <textarea class="form-control" name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">Hình ảnh</label>
+                        <input type="file" class="form-control" name="file" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal cập nhật xe -->
+<div class="modal fade" id="updateVehicleModal" tabindex="-1" aria-labelledby="updateVehicleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form action="@Url.Action("Update", "AdminVehicle")" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken() <!-- Thêm token chống giả mạo -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateVehicleModalLabel">Cập nhật thông tin xe</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="vehicle_id" id="vehicle_id" />
+
+                    <div class="row">
+                        <div class="form-group">
+                            <label for="manufacturer_id">Hãng Xe</label>
+                            <select class="form-control" name="manufacturer_id" id="manufacturer_id" required>
+                                <option value="">Chọn hãng xe</option>
+                                @if (ViewBag.manufacturer_ids != null)
+                                {
+                                    foreach (var manufacturer in ViewBag.manufacturer_ids)
+                                    {
+                                        <option value="@manufacturer.manufacturer_id">@manufacturer.name</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">Không có hãng xe nào.</option>
+                                }
+                            </select>
+                        </div>
+
+
+
+                        <div class="col-md-6 mb-3">
+                            <label for="vehicle_name" class="form-label">Tên xe <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="name" id="vehicle_name" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="vehicle_type" class="form-label">Loại xe <span class="text-danger">*</span></label>
+                            <select name="type_vehicle" class="form-select" id="vehicle_type" required>
+                                <option value="Xe ô tô">Xe ô tô</option>
+                                <option value="Xe máy">Xe máy</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="vehicle_quantity" class="form-label">Số lượng <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" name="quantity" id="vehicle_quantity" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="number_vehicle" class="form-label">Số chỗ ngồi</label>
+                            <select id="number_vehicle" name="number_vehicle" class="form-select" required>
+                                <option value="4">4 chỗ</option>
+                                <option value="5">5 chỗ</option>
+                                <option value="7">7 chỗ</option>
+                                <option value="2">2 chỗ</option>
+                            </select>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="vehicle_price" class="form-label">Giá <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="price" id="vehicle_price" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="vehicle_fuel" class="form-label">Loại nhiên liệu <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="fuel_type" id="vehicle_fuel" required />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="vehicle_description" class="form-label">Mô tả</label>
+                            <textarea class="form-control" name="description" id="vehicle_description"></textarea>  
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="vehicle_image" class="form-label">Hình ảnh</label>
+                            <input type="file" class="form-control" name="file" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Thiết lập dữ liệu cho modal cập nhật
+        var updateVehicleModal = document.getElementById('updateVehicleModal');
+        updateVehicleModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget; // Nút kích hoạt modal
+            var vehicle_id = button.getAttribute('data-id');
+            var name = button.getAttribute('data-name');
+            var manufacturer_id = button.getAttribute('data-man'); // Hãng xe
+            var type = button.getAttribute('data-type');
+            var quantity = button.getAttribute('data-quantity');
+            var number = button.getAttribute('data-number');
+            var price = button.getAttribute('data-price');
+            var fuel = button.getAttribute('data-fuel');
+            var description = button.getAttribute('data-description');
+            var image = button.getAttribute('data-image');
+
+            var modalIdInput = updateVehicleModal.querySelector('#vehicle_id');
+            var modalNameInput = updateVehicleModal.querySelector('#vehicle_name');
+            var modalmanufacturer_idInput = updateVehicleModal.querySelector('#vehicle_manufacturer_id'); // Thêm trường hãng xe
+            var modalTypeInput = updateVehicleModal.querySelector('#vehicle_type');
+            var modalQuantityInput = updateVehicleModal.querySelector('#vehicle_quantity');
+            var modalNumberInput = updateVehicleModal.querySelector('#vehicle_number');
+            var modalPriceInput = updateVehicleModal.querySelector('#vehicle_price');
+            var modalFuelInput = updateVehicleModal.querySelector('#vehicle_fuel');
+            var modalDescriptionInput = updateVehicleModal.querySelector('#vehicle_description');
+
+            modalIdInput.value = vehicle_id;
+            modalNameInput.value = name;
+            modalmanufacturer_idInput.value = manufacturer_id; // Gán giá trị hãng xe
+            modalTypeInput.value = type;
+            modalQuantityInput.value = quantity;
+            modalNumberInput.value = number;
+            modalPriceInput.value = price;
+            modalFuelInput.value = fuel;
+            modalDescriptionInput.value = description;
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var typeVehicle = document.getElementById("type_vehicle");
+            var numberVehicle = document.getElementById("number_vehicle");
+
+            // Hàm cập nhật số chỗ ngồi dựa trên loại xe
+            function updateNumberVehicleOptions() {
+                numberVehicle.innerHTML = ""; // Xóa các tùy chọn hiện tại
+
+                if (typeVehicle.value === "Xe ô tô") {
+                    // Thêm tùy chọn 4 chỗ và 7 chỗ cho xe ô tô
+                    var option4 = document.createElement("option");
+                    option4.value = 4;
+                    option4.text = "4 chỗ";
+                    numberVehicle.appendChild(option4);
+
+                    var option5 = document.createElement("option");
+                    option5.value = 5;
+                    option5.text = "5 chỗ";
+                    numberVehicle.appendChild(option5);
+
+                    var option7 = document.createElement("option");
+                    option7.value = 7;
+                    option7.text = "7 chỗ";
+                    numberVehicle.appendChild(option7);
+
+                    numberVehicle.removeAttribute("disabled"); // Cho phép chọn số chỗ ngồi
+                } else if (typeVehicle.value === "Xe máy") {
+                    // Mặc định số chỗ ngồi là 2 chỗ cho xe máy
+                    var option2 = document.createElement("option");
+                    option2.value = 2;
+                    option2.text = "2 chỗ";
+                    numberVehicle.appendChild(option2);
+
+                    numberVehicle.setAttribute("disabled", "true"); // Vô hiệu hóa chọn số chỗ ngồi
+                }
+            }
+
+            // Khi người dùng thay đổi loại xe
+            typeVehicle.addEventListener("change", updateNumberVehicleOptions);
+
+            // Gọi sự kiện khi trang được tải để thiết lập tùy chọn ban đầu
+            updateNumberVehicleOptions();
+        });
     </script>
-</main>
+}

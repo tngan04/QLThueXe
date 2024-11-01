@@ -30,10 +30,21 @@ namespace QuanLyThueXe.Controllers.Public
         public ActionResult CancelRental(int id)
         {
             user user = (user)Session["USER"];
-            rental booking = myDb.rentals.FirstOrDefault(x => x.rental_id == id);
+            rental booking = myDb.Rentals.FirstOrDefault(x => x.rental_id == id);
             booking.status = 2;
             myDb.SaveChanges();
             return RedirectToAction("GetRentals", new { id = user.user_id, mess = "1" });
+        }
+
+        public void Add(rental rental)
+        {
+            myDb.Rentals.Add(rental);
+            myDb.SaveChanges();
+        }
+
+        public List<rental> getAll()
+        {
+            return myDb.Rentals.ToList();
         }
     }
 }
